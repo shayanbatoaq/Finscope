@@ -1,26 +1,83 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e9eef1;
+  --foreground: #172734;
+  --card: #ffffff;
+  --card-foreground: #172734;
+  --popover: #ffffff;
+  --popover-foreground: #172734;
+  --primary: #2e4455;
+  --primary-foreground: #ffffff;
+  --secondary: #eef6f5;
+  --secondary-foreground: #203542;
+  --muted: #dce6eb;
+  --muted-foreground: #5c6d78;
+  --accent: #d7e8e6;
+  --accent-foreground: #203542;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --border: #c9d6dd;
+  --input: #d4e0e6;
+  --ring: #2e4455;
+  --chart-1: #2e4455;
+  --chart-2: #4b9c96;
+  --chart-3: #c99232;
+  --chart-4: #6b7f8d;
+  --chart-5: #7f5f45;
+  --radius: 0.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --radius-xs: calc(var(--radius) * 0.5);
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: calc(var(--radius) * 0.875);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(75, 156, 150, 0.18), transparent 34rem),
+    linear-gradient(180deg, #f6f9fa 0%, var(--background) 38%, #dde7ec 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: rgba(46, 68, 85, 0.18);
 }
