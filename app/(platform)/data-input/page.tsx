@@ -6,8 +6,7 @@ export default function DataInputPage() {
     <div className="space-y-8">
       <PageHeader
         eyebrow="Data Input"
-        title="Upload or enter a trial balance"
-        description="Accept Excel, CSV, or PDF uploads, or manually capture Account Name, Debit, and Credit lines."
+        title="Trial balance"
       />
       <DataInputWorkbench />
     </div>

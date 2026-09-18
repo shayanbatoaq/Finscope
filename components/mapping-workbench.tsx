@@ -1,10 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { AlertTriangle } from "lucide-react"
-
+import { AlertTriangle, CheckCheck } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
@@ -20,88 +18,105 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  accountMappings,
-  mappingCategories,
-  type AccountMapping,
-  type MappingConfidence,
-} from "@/lib/mock-data"
+import { mappingCategories } from "@/lib/mock-data"
+import type { LedgerRow } from "@/lib/trial-balance"
 import { cn } from "@/lib/utils"
 
-const confidenceClass: Record<MappingConfidence, string> = {
-  High: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  Medium: "border-amber-200 bg-amber-50 text-amber-800",
-  Low: "border-red-200 bg-red-50 text-red-700",
-}
-
-export function MappingWorkbench() {
-  const [rows, setRows] = useState<AccountMapping[]>(accountMappings)
-
-  function updateCategory(id: string, category: string) {
-    setRows((current) =>
-      current.map((row) =>
-        row.id === id
-          ? {
-              ...row,
-              category,
-              confidence: row.confidence === "Low" ? "Medium" : row.confidence,
-            }
-          : row
-      )
-    )
-  }
-
+export function MappingWorkbench({
+  rows,
+  onChange,
+  onConfirm,
+}: {
+  rows: LedgerRow[]
+  onChange: (id: string, category: string) => void
+  onConfirm: () => void
+}) {
+  const pending = rows.filter((row) => row.confidence !== "Reviewed").length
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Review Standardized Account Mapping</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-hidden rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Account Name</TableHead>
-                <TableHead>Standard Category</TableHead>
-                <TableHead>Confidence</TableHead>
-                <TableHead>Rationale</TableHead>
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h3 className="text-sm font-medium">
+          {pending
+            ? `${pending} mappings to review on this page`
+            : "All mappings on this page reviewed"}
+        </h3>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={!pending || rows.some((row) => !row.category)}
+          onClick={onConfirm}
+        >
+          <CheckCheck className="size-4" />
+          Accept page suggestions
+        </Button>
+      </div>
+      <div className="overflow-hidden rounded-lg border bg-white">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name of ledger</TableHead>
+              <TableHead>Standard category</TableHead>
+              <TableHead>Confidence</TableHead>
+              <TableHead>Rationale</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.id}
+                className={
+                  row.confidence === "Low" ? "bg-amber-50/60" : undefined
+                }
+              >
+                <TableCell className="min-w-44 max-w-72 whitespace-normal font-medium">
+                  <span className="flex items-center gap-2">
+                    {row.confidence === "Low" && (
+                      <AlertTriangle className="size-4 shrink-0 text-amber-700" />
+                    )}
+                    <span className="break-words">{row.ledgerName}</span>
+                  </span>
+                </TableCell>
+                <TableCell className="min-w-56">
+                  <Select
+                    value={row.category}
+                    onValueChange={(value) => onChange(row.id, value)}
+                  >
+                    <SelectTrigger
+                      className="w-full bg-white"
+                      aria-label={`Category for ${row.ledgerName}`}
+                    >
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {mappingCategories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "border",
+                      row.confidence === "Reviewed"
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                        : "border-amber-200 bg-amber-50 text-amber-800"
+                    )}
+                  >
+                    {row.confidence}
+                  </Badge>
+                </TableCell>
+                <TableCell className="min-w-48 max-w-80 whitespace-normal text-sm text-muted-foreground">
+                  {row.rationale}
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.id} className={row.confidence === "Low" ? "bg-red-50/60" : undefined}>
-                  <TableCell className="min-w-56 font-medium">
-                    <div className="flex items-center gap-2">
-                      {row.confidence === "Low" ? <AlertTriangle className="size-4 text-red-600" /> : null}
-                      {row.accountName}
-                    </div>
-                  </TableCell>
-                  <TableCell className="min-w-60">
-                    <Select value={row.category} onValueChange={(value) => updateCategory(row.id, value)}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {mappingCategories.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className={cn("border", confidenceClass[row.confidence])}>
-                      {row.confidence}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="max-w-md text-sm text-muted-foreground">{row.rationale}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   )
 }

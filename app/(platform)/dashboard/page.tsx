@@ -92,9 +92,9 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-3">
           <Button asChild variant="outline">
-            <Link href="/financial-statements">
+            <Link href="/data-input">
               <FileText className="size-4" />
-              View statements
+              Review trial balance
             </Link>
           </Button>
           <Button asChild variant="outline">

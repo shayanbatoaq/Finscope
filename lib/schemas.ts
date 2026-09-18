@@ -42,9 +42,8 @@ export const leadSchema = z.object({
 })
 
 export const manualTrialBalanceSchema = z.object({
-  accountName: z.string().min(2),
-  debit: z.coerce.number().min(0),
-  credit: z.coerce.number().min(0),
+  ledgerName: z.string().min(2),
+  amount: z.coerce.number(),
 })
 
 export type AuthFormValues = z.infer<typeof authSchema>

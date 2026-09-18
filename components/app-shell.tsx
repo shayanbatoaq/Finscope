@@ -3,13 +3,10 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  Activity,
   BarChart3,
   Building2,
-  ClipboardCheck,
   DollarSign,
   Download,
-  FileText,
   Handshake,
   Home,
   Landmark,
@@ -40,10 +37,7 @@ const navItems = [
   { href: "/profile", label: "Profile", icon: Building2 },
   { href: "/regulatory", label: "Regulatory", icon: ShieldCheck },
   { href: "/data-input", label: "Data Input", icon: Upload },
-  { href: "/mapping", label: "Mapping", icon: Activity },
-  { href: "/processing", label: "Processing", icon: ClipboardCheck },
   { href: "/industry", label: "Industry", icon: BarChart3 },
-  { href: "/financial-statements", label: "Statements", icon: FileText },
   { href: "/ai-cfo-report", label: "AI CFO", icon: Sparkles },
   { href: "/vat", label: "VAT", icon: Receipt },
   { href: "/corporate-tax", label: "Corporate Tax", icon: Landmark },

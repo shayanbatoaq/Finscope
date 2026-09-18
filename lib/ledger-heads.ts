@@ -1,0 +1,57 @@
+export type LedgerHead = {
+  name: string
+  statement: "P&L" | "BS"
+  mainHead: string
+}
+
+export const ledgerHeads: LedgerHead[] = [
+  { name: "Revenue", statement: "P&L", mainHead: "Income" },
+  { name: "Cost of Goods Sold", statement: "P&L", mainHead: "Cost of Sales" },
+  { name: "Commission Expense", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Fee & Subscription", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Finance Consultancy", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "General Expense", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Insurance Expense", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Legal & Professional", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Marketing Expense", statement: "P&L", mainHead: "Selling & Marketing Expenses" },
+  { name: "Meal & Entertainment", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Medical Expense", statement: "P&L", mainHead: "Operating Expenses" },
+  { name: "Office Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Payroll Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Printing & Stationery", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Rent Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Travelling Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Utilities", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Vehicle Running", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Bank Charges", statement: "P&L", mainHead: "Finance Cost" },
+  { name: "Interest Expense", statement: "P&L", mainHead: "Finance Cost" },
+  { name: "Exchange Gain / (Loss)", statement: "P&L", mainHead: "Other Income / Expense" },
+  { name: "Discount Given", statement: "P&L", mainHead: "Selling Expenses" },
+  { name: "Postage & Courier Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Depreciation Expense", statement: "P&L", mainHead: "Administrative Expenses" },
+  { name: "Other Expense", statement: "P&L", mainHead: "Other Expenses" },
+  { name: "Other Income", statement: "P&L", mainHead: "Other Income" },
+  { name: "Accounts Receivable", statement: "BS", mainHead: "Assets" },
+  { name: "Bank", statement: "BS", mainHead: "Assets" },
+  { name: "Cash in Hand", statement: "BS", mainHead: "Assets" },
+  { name: "Inventory", statement: "BS", mainHead: "Assets" },
+  { name: "Prepaid Expense", statement: "BS", mainHead: "Assets" },
+  { name: "Fixed Assets", statement: "BS", mainHead: "Assets" },
+  { name: "Allowance for Bad Debt", statement: "BS", mainHead: "Assets (Contra Asset)" },
+  { name: "Allowance for Depreciation", statement: "BS", mainHead: "Assets (Contra Asset)" },
+  { name: "Accounts Payable", statement: "BS", mainHead: "Liabilities" },
+  {
+    name: "VAT Control",
+    statement: "BS",
+    mainHead: "Current Assets / Current Liabilities (depends on balance)",
+  },
+  {
+    name: "Current Account",
+    statement: "BS",
+    mainHead: "Equity / Liability (depends on partner/director account)",
+  },
+  { name: "Long Term Liabilities", statement: "BS", mainHead: "Liabilities" },
+  { name: "Share Capital", statement: "BS", mainHead: "Equity" },
+  { name: "Retained Earnings", statement: "BS", mainHead: "Equity" },
+  { name: "Dividends", statement: "BS", mainHead: "Equity" },
+]
